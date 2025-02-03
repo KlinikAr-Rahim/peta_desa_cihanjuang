@@ -55,7 +55,7 @@
                         return { color: '#000', weight: 1, fillColor: getColor(jumlah), fillOpacity: 0.7 };
                     },
                     onEachFeature: function(feature, layer) {
-                        layer.bindPopup(<b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]});
+                        layer.bindPopup(`<b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]}`);
                     }
                 }).addTo(map);
             })
