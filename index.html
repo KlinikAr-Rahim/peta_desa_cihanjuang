@@ -30,7 +30,7 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([-6.2, 106.8], 10);
+        var map = L.map('map');
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -49,7 +49,7 @@
         fetch('peta%20klinik%2016.geojson')  // Ganti dengan URL publik GitHub Anda
             .then(response => response.json())
             .then(data => {
-                L.geoJSON(data, {
+                var geoJsonLayer = L.geoJSON(data, {
                     style: function(feature) {
                         var jumlah = feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"];
                         return { color: '#000', weight: 1, fillColor: getColor(jumlah), fillOpacity: 0.7 };
@@ -59,6 +59,8 @@
                         layer.bindPopup(`<b>RW: </b> ${rw} <br> <b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]}`);
                     }
                 }).addTo(map);
+                
+                map.fitBounds(geoJsonLayer.getBounds()); // Zoom otomatis ke area data
             })
             .catch(error => console.error('Error:', error));
         
@@ -84,3 +86,4 @@
     </script>
 </body>
 </html>
+
