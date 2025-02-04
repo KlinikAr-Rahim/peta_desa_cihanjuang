@@ -55,7 +55,7 @@
                         return { color: '#000', weight: 1, fillColor: getColor(jumlah), fillOpacity: 0.7 };
                     },
                     onEachFeature: function(feature, layer) {
-                        layer.bindPopup(`<b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]}`);
+                        layer.bindPopup(`<b>RW: </b> ${feature.properties["RW"]} <br> <b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]}`);
                     }
                 }).addTo(map);
             })
@@ -69,10 +69,12 @@
                 grades = [0, 2, 5, 7, 10, 13, 16],
                 colors = ['#FFFFFF', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026'];
             
-            for (var i = 0; i < grades.length; i++) {
+            div.innerHTML += '<i style="background:' + colors[0] + ';"></i> 0<br>';
+            
+            for (var i = 1; i < grades.length; i++) {
                 div.innerHTML +=
                     '<i style="background:' + colors[i] + ';"></i> ' +
-                    (i === 0 ? '0' : grades[i - 1] + 1) + '&ndash;' + grades[i] + '<br>';
+                    grades[i - 1] + 1 + '&ndash;' + grades[i] + '<br>';
             }
             return div;
         };
@@ -81,4 +83,5 @@
     </script>
 </body>
 </html>
+
 
