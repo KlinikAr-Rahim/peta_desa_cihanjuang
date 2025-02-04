@@ -55,7 +55,8 @@
                         return { color: '#000', weight: 1, fillColor: getColor(jumlah), fillOpacity: 0.7 };
                     },
                     onEachFeature: function(feature, layer) {
-                        layer.bindPopup(`<b>RW: </b> ${feature.properties["RW"]} <br> <b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]}`);
+                        var rw = feature.properties["tabulasi_RW"] || "Tidak diketahui";
+                        layer.bindPopup(`<b>RW: </b> ${rw} <br> <b>Jumlah Pasien:</b> ${feature.properties["tabulasi_Jumlah Pasien Klinik Ar-Rahim (No. telp)"]}`);
                     }
                 }).addTo(map);
             })
@@ -74,7 +75,7 @@
             for (var i = 1; i < grades.length; i++) {
                 div.innerHTML +=
                     '<i style="background:' + colors[i] + ';"></i> ' +
-                    grades[i - 1] + 1 + '&ndash;' + grades[i] + '<br>';
+                    (grades[i - 1] + 1) + ' - ' + grades[i] + '<br>';
             }
             return div;
         };
@@ -83,5 +84,3 @@
     </script>
 </body>
 </html>
-
-
