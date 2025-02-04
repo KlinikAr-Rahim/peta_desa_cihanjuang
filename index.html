@@ -30,20 +30,20 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([-6.2, 106.8], 10); // Sesuaikan koordinat
+        var map = L.map('map').setView([-6.2, 106.8], 10);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
         
         function getColor(jumlah) {
-            return jumlah > 16 ? '#800026' :
-                   jumlah > 13 ? '#BD0026' :
-                   jumlah > 8  ? '#E31A1C' :
-                   jumlah > 7  ? '#FC4E2A' :
-                   jumlah > 6  ? '#FD8D3C' :
-                   jumlah > 3  ? '#FEB24C' :
-                   jumlah > 2  ? '#FED976' : '#FFEDA0';
+            return jumlah === 0 ? '#FFFFFF' :
+                   jumlah <= 2 ? '#FFEDA0' :
+                   jumlah <= 5 ? '#FED976' :
+                   jumlah <= 7 ? '#FEB24C' :
+                   jumlah <= 10 ? '#FD8D3C' :
+                   jumlah <= 13 ? '#FC4E2A' :
+                   jumlah <= 16 ? '#E31A1C' : '#BD0026';
         }
         
         fetch('peta%20klinik%2016.geojson')  // Ganti dengan URL publik GitHub Anda
@@ -66,13 +66,13 @@
         
         legend.onAdd = function (map) {
             var div = L.DomUtil.create('div', 'legend'),
-                grades = [0, 2, 3, 6, 7, 8, 13, 16],
-                labels = [];
+                grades = [0, 2, 5, 7, 10, 13, 16],
+                colors = ['#FFFFFF', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026'];
             
             for (var i = 0; i < grades.length; i++) {
                 div.innerHTML +=
-                    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                    '<i style="background:' + colors[i] + ';"></i> ' +
+                    (i === 0 ? '0' : grades[i - 1] + 1) + '&ndash;' + grades[i] + '<br>';
             }
             return div;
         };
@@ -81,3 +81,4 @@
     </script>
 </body>
 </html>
+
